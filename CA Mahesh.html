@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CA Mahesh R. Solanki | UAE Corporate Tax & VAT Specialist</title>
+<meta name="description" content="Chartered Accountant specializing in UAE Corporate Tax, VAT compliance, and financial statement review. Recruiter-focused, professional, and future-ready." />
+
+<!-- Open Graph -->
+<meta property="og:title" content="CA Mahesh R. Solanki | UAE Corporate Tax & VAT Specialist" />
+<meta property="og:description" content="Modern, premium professional profile of a Chartered Accountant focused on UAE Corporate Tax and VAT." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="TODO: Add website URL" />
+<meta property="og:image" content="https://via.placeholder.com/1200x630" />
+
+<style>
+:root {
+  --navy: #0b1f33;
+  --black: #0d0f12;
+  --white: #f6f7f9;
+  --gold: #c9a24d;
+  --glass: rgba(255, 255, 255, 0.08);
+  --radius: 16px;
+  --blur: blur(18px);
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 32px;
+  --space-lg: 64px;
+  --space-xl: 96px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+  background: linear-gradient(180deg, #0b1f33 0%, #05070a 100%);
+  color: var(--white);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: var(--gold); text-decoration: none; }
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  background: rgba(11, 31, 51, 0.85);
+  backdrop-filter: var(--blur);
+}
+.nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo { font-weight: 600; letter-spacing: 0.5px; }
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: var(--space-sm);
+  margin: 0;
+  padding: 0;
+}
+nav a { color: var(--white); opacity: 0.85; font-size: 0.9rem; }
+nav a:hover { opacity: 1; }
+main { margin-top: 80px; }
+section { max-width: 1200px; margin: 0 auto; padding: var(--space-xl) var(--space-md); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 25% 30%, rgba(201,162,77,0.18), transparent 60%),
+              radial-gradient(circle at 70% 70%, rgba(255,255,255,0.06), transparent 60%);
+  animation: floatBG 20s linear infinite;
+}
+@keyframes floatBG {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-40px); }
+  100% { transform: translateY(0); }
+}
+.hero-content {
+  position: relative;
+  text-align: center;
+  max-width: 900px;
+  animation: fadeSlide 1.4s ease forwards;
+}
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero h1 { font-size: clamp(2.6rem, 5vw, 3.6rem); margin-bottom: var(--space-sm); }
+.hero h2 { font-weight: 400; color: var(--gold); margin-bottom: var(--space-sm); }
+.hero p { opacity: 0.85; font-size: 1.1rem; margin-bottom: var(--space-md); }
+.cta-group {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn {
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--white);
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+.btn.primary {
+  background: var(--gold);
+  color: var(--black);
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* GLASS CARD */
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+  border-radius: var(--radius);
+  padding: var(--space-lg);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+/* ABOUT */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  text-align: center;
+}
+
+/* SKILLS */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+}
+.skill-card {
+  background: var(--glass);
+  padding: var(--space-md);
+  border-radius: var(--radius);
+  backdrop-filter: var(--blur);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.skill-card:hover {
+  transform: rotateX(8deg) rotateY(-8deg) translateY(-8px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+/* EXPERIENCE */
+.timeline {
+  position: relative;
+  padding-left: 30px;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--gold);
+}
+.timeline-item {
+  margin-bottom: var(--space-lg);
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.8s ease;
+}
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* CONTACT */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+footer {
+  padding: var(--space-md);
+  text-align: center;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .about-grid, .contact-grid { grid-template-columns: 1fr; text-align: center; }
+  nav ul { justify-content: center; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="logo">CA Mahesh R. Solanki</div>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>CA Mahesh R. Solanki</h1>
+      <h2>Chartered Accountant | UAE Corporate Tax & VAT Specialist</h2>
+      <p>Helping businesses stay compliant, accurate, and tax-efficient</p>
+      <div class="cta-group">
+        <a href="#experience" class="btn primary">View Experience</a>
+        <a href="TODO: Resume PDF link" class="btn">Download Resume</a>
+        <a href="#contact" class="btn">Contact Me</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="glass-card about-grid">
+      <div>
+        <h2>About Me</h2>
+        <p>Chartered Accountant (Nov 2024, First Attempt) with focused expertise in UAE Corporate Tax, VAT review, corporate tax return filing, and financial statement review from a tax perspective.</p>
+        <p>Strong in Excel-driven reporting and accounting software including QuickBooks, Xero, and Tally. Known for precision, compliance accuracy, and professional reliability.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Core Expertise</h2>
+    <div class="skills-grid">
+      <div class="skill-card">UAE Corporate Tax Compliance</div>
+      <div class="skill-card">VAT Review & Reconciliation</div>
+      <div class="skill-card">Corporate Tax Return Filing</div>
+      <div class="skill-card">Financial Statement Review for Tax</div>
+      <div class="skill-card">Excel for Tax & Financial Reporting</div>
+      <div class="skill-card">QuickBooks · Xero · Tally</div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2>Professional Experience</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>Account & Tax Associate – Active Bean Counter (Anderson Global Group)</h3>
+        <p>UAE Corporate Tax compliance, VAT reviews, tax computations, and financial statement analysis.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Assistant Accountant – Auzin Advisory</h3>
+        <p>Accounting support, reconciliations, and income tax return preparation.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Article Assistant – M D Dudawala & Co.</h3>
+        <p>Audit, GST, income tax compliance, and financial statement finalization.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="glass-card contact-grid">
+      <div>
+        <p><strong>Email:</strong> solankimahesh84939@gmail.com</p>
+        <p><strong>Phone:</strong> +91 93130 26285</p>
+        <p><strong>LinkedIn:</strong> www.linkedin.com/in/maheshrsolanki</p>
+      </div>
+      <div>
+        <p>Open to opportunities with UAE tax firms, accounting firms, and global consulting teams.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © <span id="year"></span> CA Mahesh R. Solanki · UAE Corporate Tax & VAT
+</footer>
+
+<script>
+const items = document.querySelectorAll('.timeline-item');
+const reveal = () => {
+  items.forEach(item => {
+    if (item.getBoundingClientRect().top < window.innerHeight - 120) {
+      item.classList.add('visible');
+    }
+  });
+};
+window.addEventListener('scroll', reveal);
+reveal();
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
