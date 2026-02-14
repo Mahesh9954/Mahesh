@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProductShoot Pro - AI Product Photography Studio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #667eea;
+        }
+        
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+        
+        .upload-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 0 auto 60px;
+            max-width: 900px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+        
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 60px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .upload-area:hover {
+            border-color: #764ba2;
+            background: linear-gradient(135deg, #ffeaa7 0%, #dfe6e9 100%);
+            transform: scale(1.02);
+        }
+        
+        .upload-area.dragover {
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+            border-color: #6c5ce7;
+        }
+        
+        .upload-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+        
+        .upload-text {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .upload-subtext {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        input[type="file"] {
+            display: none;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .option-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .option-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .option-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .option-choices {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .radio-group {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .radio-group:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .radio-group input {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        
+        .generate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 60px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 40px auto 0;
+            display: block;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .generate-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+        
+        .generate-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .feature-desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .preview-section {
+            display: none;
+            margin-top: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        
+        .preview-container {
+            position: relative;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        #outputCanvas {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        .loading-text {
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .download-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .download-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(40, 167, 69, 0.3);
+        }
+        
+        .effect-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .effect-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        
+        .effect-btn.active {
+            background: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="container nav">
+            <div class="logo">📸 ProductShoot Pro</div>
+            <ul class="nav-links">
+                <li><a href="#upload">Upload</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#examples">Examples</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Transform Products into Premium Ads</h1>
+            <p>Professional Product Photography Effects - No API Required!</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="upload-section" id="upload">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📷</div>
+                <div class="upload-text">Drop your product image here</div>
+                <div class="upload-subtext">or click to browse (PNG, JPG, WEBP - Max 10MB)</div>
+                <input type="file" id="fileInput" accept="image/*">
+            </div>
+
+            <div class="options-grid">
+                <div class="option-card">
+                    <div class="option-title">
+                        <span>🎨</span>
+                        <span>Background Style</span>
+                    </div>
+                    <div class="option-choices">
+                        <label class="radio-group">
+                            <input type="radio" name="background" value="white" checked>
+                            <span>Clean White</span>
+                        </label>
+                        <label class="radio-group">
+                            <input type="radio" name="background" value="gradient">
+                            <span>Gradient</span>
+                        </label>
+                        <label class="radio-group">
+                            <input type="radio" name="background" value="dark">
+                            <span>Dark Studio</span>
+                        </label>
+                        <label class="radio-group">
+                            <input type="radio" name="background" value="colored">
+                            <span>Colored</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="option-card">
+                    <div class="option-title">
+                        <span>💡</span>
+                        <span>Lighting Effect</span>
+                    </div>
+                    <div class="option-choices">
+                        <label class="radio-group">
+                            <input type="radio" name="lighting" value="bright" checked>
+                            <span>Bright & Clean</span>
+                        </label>
+                        <label class="radio-group">
+                            <input type="radio" name="lighting" value="dramatic">
+                            <span>Dramatic Shadow</span>
+                        </label>
+                        <label class="radio-group">
+                            <input type="radio" name="lighting" value="soft">
+                            <span>Soft Glow</span>
+                        </label>
+                        <label class="radio-group">
+                            <input type="radio" name="lighting" value="studio">
+                            <span>Studio Light</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="option-card">
+                    <div class="option-title">
+                        <span>✨</span>
+                        <span>Enhancement</span>
+                    </div>
+                    <div class="option-choices">
+                        <label class="radio-group">
+                            <input type="radio" name="enhancement" value="sharp" checked>
+                            <span>Extra Sharp</span>
+                        </label>
+                        <label class="radio-group">
+                            <input type="radio" name="enhancement" value="vibrant">
+                            <span>Vibrant Colors</span>
+                        </label>
+                        <label class="radio-group">
+                            <input type="radio" name="enhancement" value="premium">
+                            <span>Premium Look</span>
+                        </label>
+                        <label class="radio-group">
+                            <input type="radio" name="enhancement" value="minimal">
+                            <span>Minimal</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="option-card">
+                    <div class="option-title">
+                        <span>🎯</span>
+                        <span>Platform</span>
+                    </div>
+                    <div class="option-choices">
+                        <label class="radio-group">
+                            <input type="radio" name="platform" value="square" checked>
+                            <span>Square (1:1)</span>
+                        </label>
+                        <label class="radio-group">
+                            <input type="radio" name="platform" value="portrait">
+                            <span>Portrait (4:5)</span>
+                        </label>
+                        <label class="radio-group">
+                            <input type="radio" name="platform" value="landscape">
+                            <span>Landscape (16:9)</span>
+                        </label>
+                        <label class="radio-group">
+                            <input type="radio" name="platform" value="original">
+                            <span>Original Ratio</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <button class="generate-btn" id="generateBtn" disabled>
+                Generate Professional Photos
+            </button>
+
+            <div class="preview-section" id="previewSection">
+                <h3 style="text-align: center; margin-bottom: 20px; color: #333;">Your Professional Product Photo</h3>
+                <div class="preview-container">
+                    <div class="canvas-container">
+                        <canvas id="outputCanvas"></canvas>
+                    </div>
+                    <div class="download-controls">
+                        <button class="download-btn" onclick="downloadImage('png')">📥 Download PNG</button>
+                        <button class="download-btn" onclick="downloadImage('jpeg')">📥 Download JPEG</button>
+                        <button class="effect-btn" onclick="applyQuickEffect('brightness')">☀️ Brightness</button>
+                        <button class="effect-btn" onclick="applyQuickEffect('contrast')">🔲 Contrast</button>
+                        <button class="effect-btn" onclick="applyQuickEffect('blur')">💧 Blur BG</button>
+                        <button class="effect-btn" onclick="resetImage()">🔄 Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="features" id="features">
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <div class="feature-title">Professional Effects</div>
+                <div class="feature-desc">Apply studio-quality lighting, shadows, and enhancement effects instantly</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-title">No API Needed</div>
+                <div class="feature-desc">Works 100% in your browser - no server, no API, no waiting</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">Instant Results</div>
+                <div class="feature-desc">Get professional-looking product photos in seconds</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <div class="feature-title">Customizable</div>
+                <div class="feature-desc">Multiple backgrounds, lighting styles, and enhancement options</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Creating your professional photo...</div>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const generateBtn = document.getElementById('generateBtn');
+        const previewSection = document.getElementById('previewSection');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const outputCanvas = document.getElementById('outputCanvas');
+        const ctx = outputCanvas.getContext('2d');
+        
+        let uploadedImage = null;
+        let originalImageData = null;
+
+        // Upload handlers
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                handleFileUpload(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileUpload(e.target.files[0]);
+            }
+        });
+
+        function handleFileUpload(file) {
+            if (!file.type.startsWith('image/')) {
+                alert('Please upload an image file');
+                return;
+            }
+
+            if (file.size > 10 * 1024 * 1024) {
+                alert('File size must be less than 10MB');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    uploadedImage = img;
+                    uploadArea.querySelector('.upload-text').textContent = `✅ ${file.name}`;
+                    uploadArea.querySelector('.upload-subtext').textContent = 'File ready for processing';
+                    uploadArea.style.borderColor = '#28a745';
+                    generateBtn.disabled = false;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        generateBtn.addEventListener('click', () => {
+            if (!uploadedImage) return;
+            
+            loadingOverlay.style.display = 'flex';
+            
+            setTimeout(() => {
+                processImage();
+                loadingOverlay.style.display = 'none';
+                previewSection.style.display = 'block';
+                previewSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 2000);
+        });
+
+        function processImage() {
+            const background = document.querySelector('input[name="background"]:checked').value;
+            const lighting = document.querySelector('input[name="lighting"]:checked').value;
+            const enhancement = document.querySelector('input[name="enhancement"]:checked').value;
+            const platform = document.querySelector('input[name="platform"]:checked').value;
+            
+            // Set canvas dimensions based on platform
+            let canvasWidth, canvasHeight;
+            const imgWidth = uploadedImage.width;
+            const imgHeight = uploadedImage.height;
+            
+            switch(platform) {
+                case 'square':
+                    canvasWidth = canvasHeight = 1080;
+                    break;
+                case 'portrait':
+                    canvasWidth = 1080;
+                    canvasHeight = 1350;
+                    break;
+                case 'landscape':
+                    canvasWidth = 1920;
+                    canvasHeight = 1080;
+                    break;
+                default:
+                    canvasWidth = imgWidth;
+                    canvasHeight = imgHeight;
+            }
+            
+            outputCanvas.width = canvasWidth;
+            outputCanvas.height = canvasHeight;
+            
+            // Apply background
+            applyBackground(background, canvasWidth, canvasHeight);
+            
+            // Calculate product placement
+            const scale = Math.min(canvasWidth * 0.7 / imgWidth, canvasHeight * 0.7 / imgHeight);
+            const productWidth = imgWidth * scale;
+            const productHeight = imgHeight * scale;
+            const x = (canvasWidth - productWidth) / 2;
+            const y = (canvasHeight - productHeight) / 2;
+            
+            // Add shadow effect
+            if (lighting === 'dramatic' || lighting === 'studio') {
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+                ctx.shadowBlur = 30;
+                ctx.shadowOffsetX = 0;
+                ctx.shadowOffsetY = 20;
+            }
+            
+            // Draw product
+            ctx.drawImage(uploadedImage, x, y, productWidth, productHeight);
+            ctx.shadowColor = 'transparent';
+            
+            // Apply lighting effects
+            applyLighting(lighting, canvasWidth, canvasHeight);
+            
+            // Apply enhancement
+            applyEnhancement(enhancement);
+            
+            // Store original for reset
+            originalImageData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
+        }
+
+        function applyBackground(type, width, height) {
+            switch(type) {
+                case 'white':
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, width, height);
+                    break;
+                case 'gradient':
+                    const gradient = ctx.createLinearGradient(0, 0, width, height);
+                    gradient.addColorStop(0, '#f5f7fa');
+                    gradient.addColorStop(1, '#c3cfe2');
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, width, height);
+                    break;
+                case 'dark':
+                    const darkGradient = ctx.createRadialGradient(width/2, height/2, 0, width/2, height/2, width);
+                    darkGradient.addColorStop(0, '#2c3e50');
+                    darkGradient.addColorStop(1, '#000000');
+                    ctx.fillStyle = darkGradient;
+                    ctx.fillRect(0, 0, width, height);
+                    break;
+                case 'colored':
+                    const colorGradient = ctx.createLinearGradient(0, 0, width, height);
+                    colorGradient.addColorStop(0, '#667eea');
+                    colorGradient.addColorStop(1, '#764ba2');
+                    ctx.fillStyle = colorGradient;
+                    ctx.fillRect(0, 0, width, height);
+                    break;
+            }
+        }
+
+        function applyLighting(type, width, height) {
+            ctx.save();
+            ctx.globalCompositeOperation = 'overlay';
+            
+            switch(type) {
+                case 'bright':
+                    const brightGradient = ctx.createRadialGradient(width/2, height/3, 0, width/2, height/2, width);
+                    brightGradient.addColorStop(0, 'rgba(255, 255, 255, 0.3)');
+                    brightGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    ctx.fillStyle = brightGradient;
+                    ctx.fillRect(0, 0, width, height);
+                    break;
+                case 'dramatic':
+                    const dramaticGradient = ctx.createLinearGradient(0, 0, width, 0);
+                    dramaticGradient.addColorStop(0, 'rgba(255, 255, 255, 0.2)');
+                    dramaticGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0)');
+                    dramaticGradient.addColorStop(1, 'rgba(0, 0, 0, 0.3)');
+                    ctx.fillStyle = dramaticGradient;
+                    ctx.fillRect(0, 0, width, height);
+                    break;
+                case 'soft':
+                    ctx.globalAlpha = 0.2;
+                    ctx.fillStyle = 'rgba(255, 250, 240, 1)';
+                    ctx.fillRect(0, 0, width, height);
+                    break;
+                case 'studio':
+                    const studioGradient = ctx.createRadialGradient(width*0.3, height*0.3, 0, width/2, height/2, width);
+                    studioGradient.addColorStop(0, 'rgba(255, 255, 255, 0.4)');
+                    studioGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.1)');
+                    studioGradient.addColorStop(1, 'rgba(0, 0, 0, 0.2)');
+                    ctx.fillStyle = studioGradient;
+                    ctx.fillRect(0, 0, width, height);
+                    break;
+            }
+            
+            ctx.restore();
+        }
+
+        function applyEnhancement(type) {
+            const imageData = ctx.getImageData(0, 0, outputCanvas.width, outputCanvas.height);
+            const data = imageData.data;
+            
+            switch(type) {
+                case 'sharp':
+                    // Simple sharpening effect
+                    for (let i = 0; i < data.length; i += 4) {
+                        data[i] = Math.min(255, data[i] * 1.1);     // Red
+                        data[i + 1] = Math.min(255, data[i + 1] * 1.1); // Green
+                        data[i + 2] = Math.min(255, data[i + 2] * 1.1); // Blue
+                    }
+                    break;
+                case 'vibrant':
+                    // Increase saturation
+                    for (let i = 0; i < data.length; i += 4) {
+                        const r = data[i];
+                        const g = data[i + 1];
+                        const b = data[i + 2];
+                        const gray = 0.2989 * r + 0.5870 * g + 0.1140 * b;
+                        data[i] = Math.min(255, gray + 1.5 * (r - gray));
+                        data[i + 1] = Math.min(255, gray + 1.5 * (g - gray));
+                        data[i + 2] = Math.min(255, gray + 1.5 * (b - gray));
+                    }
+                    break;
+                case 'premium':
+                    // Add slight contrast and warmth
+                    for (let i = 0; i < data.length; i += 4) {
+                        data[i] = Math.min(255, (data[i] - 128) * 1.2 + 128 + 5);     // Red with warmth
+                        data[i + 1] = Math.min(255, (data[i + 1] - 128) * 1.2 + 128); // Green
+                        data[i + 2] = Math.max(0, (data[i + 2] - 128) * 1.2 + 128 - 5); // Blue
+                    }
+                    break;
+                case 'minimal':
+                    // Soft contrast
+                    for (let i = 0; i < data.length; i += 4) {
+                        data[i] = Math.min(255, (data[i] - 128) * 0.9 + 128);
+                        data[i + 1] = Math.min(255, (data[i + 1] - 128) * 0.9 + 128);
+                        data[i + 2] = Math.min(255, (data[i + 2] - 128) * 0.9 + 128);
+                    }
+                    break;
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function applyQuickEffect(effect) {
+            const imageData = ctx.getImageData(0, 0, outputCanvas.width, outputCanvas.height);
+            const data = imageData.data;
+            
+            switch(effect) {
+                case 'brightness':
+                    for (let i = 0; i < data.length; i += 4) {
+                        data[i] = Math.min(255, data[i] + 20);
+                        data[i + 1] = Math.min(255, data[i + 1] + 20);
+                        data[i + 2] = Math.min(255, data[i + 2] + 20);
+                    }
+                    break;
+                case 'contrast':
+                    for (let i = 0; i < data.length; i += 4) {
+                        data[i] = Math.min(255, (data[i] - 128) * 1.3 + 128);
+                        data[i + 1] = Math.min(255, (data[i + 1] - 128) * 1.3 + 128);
+                        data[i + 2] = Math.min(255, (data[i + 2] - 128) * 1.3 + 128);
+                    }
+                    break;
+                case 'blur':
+                    ctx.filter = 'blur(2px)';
+                    ctx.drawImage(outputCanvas, 0, 0);
+                    ctx.filter = 'none';
+                    return;
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function resetImage() {
+            if (originalImageData) {
+                ctx.putImageData(originalImageData, 0, 0);
+            }
+        }
+
+        function downloadImage(format) {
+            const link = document.createElement('a');
+            link.download = `product-photo-pro.${format}`;
+            link.href = outputCanvas.toDataURL(`image/${format}`, 0.95);
+            link.click();
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
